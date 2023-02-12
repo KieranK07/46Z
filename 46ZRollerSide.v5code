@@ -50,7 +50,30 @@ wait(10, msec);
 
 
 }  // end Forward
-
+thread loader = thread([](){
+	brain& Brain = William;
+	int x = 0;
+	int y = 0;
+	int xDir = 1;
+	int yDir = 1;
+	while(1){
+		Brain.Screen.waitForRefresh();
+		Brain.Screen.clearScreen(black);
+		Brain.Screen.drawRectangle(x, y, 50, 50, red);
+		Brain.Screen.drawRectangle(x + 50, y, 50, 50, green);
+		Brain.Screen.drawRectangle(x, y + 50, 50, 50, blue);
+		Brain.Screen.drawRectangle(x + 50, y + 50, 50, 50, yellow);
+		x += xDir;
+		y += yDir;
+		if(x < 0 || x + 100 > 480){
+			xDir *= -1;
+		}
+		if(y < 0 || y + 100 > 240){
+			yDir *= -1;
+		}
+		task::sleep(10);
+	}
+});
 
 void Bward(int speed, float rotation)  // Go rev at "speed" for "rotation" 
 // wheel rotations
